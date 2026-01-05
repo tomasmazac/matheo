@@ -6,9 +6,15 @@
 
 .keypad-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   gap: 0.75rem;
   width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+.empty-cell {
+  /* Prázdná buňka pro layout */
 }
 
 .keypad-button {
@@ -25,7 +31,7 @@
   user-select: none;
 }
 
-.keypad-button:active {
+.keypad-button:active:not(:disabled) {
   transform: scale(0.95);
   box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -38,21 +44,22 @@
   background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
 }
 
-.operator-buttons {
-  grid-column: span 3;
-  display: flex;
-  gap: 0.75rem;
-}
-
 .operator-button {
-  flex: 1;
   background: linear-gradient(145deg, #3498db, #2980b9);
   color: white;
   border-color: #2980b9;
 }
 
-.operator-button:hover {
+.operator-button:hover:not(:disabled) {
   background: linear-gradient(145deg, #2980b9, #21638f);
+}
+
+.operator-button:disabled {
+  background: linear-gradient(145deg, #bdc3c7, #95a5a6);
+  color: #7f8c8d;
+  border-color: #95a5a6;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .delete-button {
@@ -67,6 +74,7 @@
 }
 
 .enter-button {
+  grid-row: span 2;
   background: linear-gradient(145deg, #2ecc71, #27ae60);
   color: white;
   border-color: #27ae60;
@@ -75,6 +83,10 @@
 
 .enter-button:hover {
   background: linear-gradient(145deg, #27ae60, #229954);
+}
+
+.zero-button {
+  /* Tlačítko 0 uprostřed spodního řádku */
 }
 
 @media (max-width: 768px) {

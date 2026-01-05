@@ -8,56 +8,49 @@ interface NumericKeypadProps {
 }
 
 export const NumericKeypad = ({ onKeyPress, onDelete, onEnter, allowOperators = false }: NumericKeypadProps) => {
-  const numberButtons = ['7', '8', '9', '4', '5', '6', '1', '2', '3'];
-  const operatorButtons = ['+', '-'];
-
   return (
     <div className="numeric-keypad">
       <div className="keypad-grid">
-        {numberButtons.map((num) => (
-          <button
-            key={num}
-            className="keypad-button number-button"
-            onClick={() => onKeyPress(num)}
-          >
-            {num}
-          </button>
-        ))}
-
+        {/* Řádek 1: prázdné, prázdné, prázdné, mínus */}
+        <div className="empty-cell"></div>
+        <div className="empty-cell"></div>
+        <div className="empty-cell"></div>
         <button
-          className="keypad-button delete-button"
-          onClick={onDelete}
+          className="keypad-button operator-button"
+          onClick={() => onKeyPress('-')}
+          disabled={!allowOperators}
         >
-          ⌫
+          −
         </button>
 
+        {/* Řádek 2: 7, 8, 9, plus */}
+        <button className="keypad-button number-button" onClick={() => onKeyPress('7')}>7</button>
+        <button className="keypad-button number-button" onClick={() => onKeyPress('8')}>8</button>
+        <button className="keypad-button number-button" onClick={() => onKeyPress('9')}>9</button>
         <button
-          className="keypad-button number-button"
-          onClick={() => onKeyPress('0')}
+          className="keypad-button operator-button"
+          onClick={() => onKeyPress('+')}
+          disabled={!allowOperators}
         >
-          0
+          +
         </button>
 
-        <button
-          className="keypad-button enter-button"
-          onClick={onEnter}
-        >
-          ✓
-        </button>
+        {/* Řádek 3: 4, 5, 6, del */}
+        <button className="keypad-button number-button" onClick={() => onKeyPress('4')}>4</button>
+        <button className="keypad-button number-button" onClick={() => onKeyPress('5')}>5</button>
+        <button className="keypad-button number-button" onClick={() => onKeyPress('6')}>6</button>
+        <button className="keypad-button delete-button" onClick={onDelete}>⌫</button>
 
-        {allowOperators && (
-          <div className="operator-buttons">
-            {operatorButtons.map((op) => (
-              <button
-                key={op}
-                className="keypad-button operator-button"
-                onClick={() => onKeyPress(op)}
-              >
-                {op}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Řádek 4: 1, 2, 3, enter (začíná) */}
+        <button className="keypad-button number-button" onClick={() => onKeyPress('1')}>1</button>
+        <button className="keypad-button number-button" onClick={() => onKeyPress('2')}>2</button>
+        <button className="keypad-button number-button" onClick={() => onKeyPress('3')}>3</button>
+        <button className="keypad-button enter-button" onClick={onEnter}>✓</button>
+
+        {/* Řádek 5: prázdné, 0, prázdné, enter (pokračuje) */}
+        <div className="empty-cell"></div>
+        <button className="keypad-button number-button zero-button" onClick={() => onKeyPress('0')}>0</button>
+        <div className="empty-cell"></div>
       </div>
     </div>
   );
