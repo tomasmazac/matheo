@@ -18,7 +18,6 @@
 }
 
 .keypad-button {
-  aspect-ratio: 1;
   font-size: 2rem;
   font-weight: bold;
   border: 3px solid #333;
