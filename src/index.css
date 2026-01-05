@@ -16,17 +16,19 @@
   -webkit-text-size-adjust: 100%;
 }
 
-body {
+html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
 }
 
 #root {
   width: 100%;
-  min-height: 100vh;
+  height: 100%;
+  overflow: auto;
 }
 
 button {
