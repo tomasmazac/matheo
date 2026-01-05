@@ -1,14 +1,20 @@
 import { useState } from 'react';
 import { getProblem, type Problem } from './getProblem';
 import { NumericKeypad } from './NumericKeypad';
+import { correct, wrong } from './messages';
 import './App.css';
 
 type FeedbackState = 'none' | 'correct' | 'incorrect';
+
+const getRandomMessage = (messages: string[]) => {
+  return messages[Math.floor(Math.random() * messages.length)];
+};
 
 function App() {
   const [problem, setProblem] = useState<Problem>(getProblem());
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [feedback, setFeedback] = useState<FeedbackState>('none');
+  const [feedbackMessage, setFeedbackMessage] = useState<string>('');
   const [score, setScore] = useState<number>(0);
   const [totalAttempts, setTotalAttempts] = useState<number>(0);
 
@@ -57,7 +63,11 @@ function App() {
         break;
     }
 
-    setFeedback(isCorrect ? 'correct' : 'incorrect');
+    const newFeedback = isCorrect ? 'correct' : 'incorrect';
+    const message = isCorrect ? getRandomMessage(correct) : getRandomMessage(wrong);
+
+    setFeedback(newFeedback);
+    setFeedbackMessage(message);
     setTotalAttempts(prev => prev + 1);
 
     if (isCorrect) {
@@ -125,7 +135,7 @@ function App() {
 
             {feedback !== 'none' && (
               <div className={`feedback-message ${feedback}`}>
-                {feedback === 'correct' ? '✓ Správně!' : '✗ Zkus to znovu!'}
+                {feedbackMessage}
               </div>
             )}
           </div>
